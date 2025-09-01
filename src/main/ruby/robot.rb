@@ -11,9 +11,7 @@ java_import 'edu.wpi.first.wpilibj2.command.Command'
 java_import 'edu.wpi.first.wpilibj2.command.CommandScheduler'
 
 class Robot < TimedRobot
-  def initialize
-    super
-  end
+  def initialize = super
 
   def robot_init
     @robot_container = RobotContainer.new
