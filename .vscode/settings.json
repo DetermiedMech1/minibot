@@ -56,13 +56,8 @@
     "edu.wpi.first.math.proto.*",
     "edu.wpi.first.math.**.proto.*",
     "edu.wpi.first.math.**.struct.*",
-<<<<<<< HEAD
 ],
-"java.debug.settings.onBuildFailureProceed": true,
 "jdk.jdkhome": "/home/mech/.local/share/mise/installs/java/openjdk-21.0.2",
 "java.jdt.ls.java.home": "/home/mech/.local/share/mise/installs/java/openjdk-21.0.2",
 "java.import.gradle.java.home": "/home/mech/.local/share/mise/installs/java/openjdk-21.0.2"
-=======
-  ]
->>>>>>> parent of 40f32f2 (idk what im doing)
 }

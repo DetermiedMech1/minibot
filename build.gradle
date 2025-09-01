@@ -10,11 +10,6 @@ java {
 
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
-repositories {
-    mavenCentral()
-    gradlePluginPortal()
-}
-
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project DeployUtils.
 deploy {
@@ -32,11 +27,6 @@ deploy {
                 // getTargetTypeClass is a shortcut to get the class type using a string
 
                 frcJava(getArtifactTypeClass('FRCJavaArtifact')) {
-                }
-
-                frcStaticFileDeploy(getArtifactTypeClass('FileTreeArtifact')) {
-                    files = project.fileTree('src/main/ruby')
-                    directory = '/home/lvuser/ruby'
                 }
 
                 // Static files artifact
@@ -78,16 +68,10 @@ dependencies {
 
     nativeRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.desktop)
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
-    nativeRelease 'org.jruby:jruby-complete:9.4.5.0'
     simulationRelease wpi.sim.enableRelease()
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-    implementation 'org.jruby:jruby-complete:9.4.5.0'
-    nativeDebug 'org.jruby:jruby-complete:9.4.5.0'
-    simulationDebug 'org.jruby:jruby-complete:9.4.5.0'
-    simulationRelease 'org.jruby:jruby-complete:9.4.5.0'
 }
 
 test {
@@ -118,27 +102,3 @@ wpi.java.configureTestTasks(test)
 tasks.withType(JavaCompile) {
     options.compilerArgs.add '-XDstringConcat=inline'
 }
-
-task copyRubyFiles(type: Copy) {
-    from 'src/main/ruby'
-    into 'build/classes/java/main/ruby'
-}
-
-task simulateJRuby(type: JavaExec) {
-    group = "simulation"
-    description = "Run robot simulation with JRuby support"
-    
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = "frc.robot.Main"
-    
-    systemProperties = [
-        'halsim.extensions': project.findProperty('HALSIM_EXTENSIONS') ?: '',
-        'java.library.path': project.findProperty('LD_LIBRARY_PATH') ?: ''
-    ]
-    
-    // Enable debugging if needed
-    if (project.hasProperty('debug')) {
-        jvmArgs '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'
-    }
-}
-
