@@ -28,7 +28,6 @@ class Robot < TimedRobot
 
   #rubocop won't stop yapping about snake_case 
   #but java wants camelCase
-  alias teleopPeriodic teleop_periodic
   alias teleopInit teleop_init
   alias robotInit robot_init 
   alias robotPeriodic robot_periodic
