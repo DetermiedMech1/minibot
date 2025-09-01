@@ -1,4 +1,2 @@
 [tools]
-graalvm = "22.3.3-java11"
 java = "openjdk-21"
-ruby = "jruby"
