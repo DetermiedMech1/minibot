@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require 'java'
+require_relative 'robotContainer'
+require_relative 'commands/driveCommand'
 
 # Import WPILib Java classes
 java_import 'edu.wpi.first.wpilibj.TimedRobot'
-java_import 'edu.wpi.first.wpilibj.XboxController'
-java_import 'edu.wpi.first.wpilibj.drive.DifferentialDrive'
-java_import 'edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX'
-java_import 'edu.wpi.first.wpilibj.smartdashboard.SmartDashboard'
+java_import 'edu.wpi.first.wpilibj2.command.Command'
+java_import 'edu.wpi.first.wpilibj2.command.CommandScheduler'
 
 puts 'Defining Robot class...'
 
@@ -17,42 +17,26 @@ class Robot < TimedRobot
     puts 'Robot instance created'
   end
 
-  def robotInit
-    puts "robotInit"
+  def robot_init
+    @robot_container = RobotContainer.new
+
+    @drive_command = @robot_container.getDriveCommand
   end
 
-  def robotPeriodic; end
-
-  def autonomousInit
-    puts 'Autonomous mode started'
+  def robot_periodic
+    CommandScheduler.getInstance.run
   end
 
-  def autonomousPeriodic; end
-
-  def teleopInit
-    puts 'Teleop mode started'
+  def teleop_init
+    @drive_command.schedule
   end
 
-  def teleopPeriodic
-    speed = -@controller.get_left_y
-    rotation = @controller.get_right_x
+  def teleop_periodic; end
 
-    puts "Speed: #{speed} Rotation: #{rotation})"
-  end
-
-  def disabledInit
-    puts 'Robot disabled'
-  end
-
-  def disabledPeriodic; end
-
-  def testInit
-    puts 'Testing'
-  end
-
-  def testPeriodic
-    # Test mode code here
-  end
+  alias teleopPeriodic teleop_periodic
+  alias teleopInit teleop_init
+  alias robotInit robot_init 
+  alias robotPeriodic robot_periodic
 end
 
 $Robot = Robot

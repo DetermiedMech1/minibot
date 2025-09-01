@@ -11,6 +11,7 @@ public final class Main {
     }
 
     public static void main(String... args) throws IOException {
+        System.out.println("Starting Robot");
         ScriptingContainer container = new ScriptingContainer();
 
         Object robot = container.runScriptlet(PathType.RELATIVE, "src/main/ruby/robot.rb");
