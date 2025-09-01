@@ -2,3 +2,5 @@ build/
 .vscode/
 .gradle/
 *.lock
+sim*.json
+networktables.json
