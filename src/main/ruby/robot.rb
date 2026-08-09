@@ -33,8 +33,4 @@ class Robot < TimedRobot
   alias robotPeriodic robot_periodic
 end
 
-$Robot = Robot
-$robot_class = Robot
-Object.const_set(:ROBOT_CLASS, Robot)
-
 Robot.new
